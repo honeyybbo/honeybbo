@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { PROFILE } from './constants';
-import { Experience, Certification } from './types';
-import { askGemini } from './geminiService';
+import { PROFILE } from './constants.ts';
+import { Experience } from './types.ts';
+import { askGemini } from './geminiService.ts';
 
 // --- Components ---
 
@@ -110,9 +110,9 @@ const Modal: React.FC<{ item: Experience | null, onClose: () => void }> = ({ ite
   if (!item) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-sm">
       <div 
-        className="bg-white w-full max-w-2xl rounded-[2.5rem] overflow-hidden shadow-2xl relative animate-in zoom-in-95 duration-300"
+        className="bg-white w-full max-w-2xl rounded-[2.5rem] overflow-hidden shadow-2xl relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button 
@@ -192,7 +192,7 @@ const ChatBot: React.FC = () => {
       </button>
 
       {isOpen && (
-        <div className="fixed bottom-28 right-8 w-96 h-[500px] bg-white rounded-3xl shadow-2xl z-50 flex flex-col overflow-hidden border border-slate-100 animate-in slide-in-from-bottom-5">
+        <div className="fixed bottom-28 right-8 w-96 h-[500px] bg-white rounded-3xl shadow-2xl z-50 flex flex-col overflow-hidden border border-slate-100">
           <div className="p-4 bg-emerald-600 text-white flex items-center space-x-3">
             <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-md">
               <i className="fas fa-robot"></i>
@@ -265,7 +265,6 @@ const ChatBot: React.FC = () => {
 export default function App() {
   const [selectedExperience, setSelectedExperience] = useState<Experience | null>(null);
 
-  // Close modal when clicking outside or pressing ESC
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setSelectedExperience(null);
@@ -430,7 +429,6 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Popups & Utilities */}
       <ChatBot />
       <Modal 
         item={selectedExperience} 
